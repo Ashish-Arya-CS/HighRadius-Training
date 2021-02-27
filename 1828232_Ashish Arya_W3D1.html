@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Title of page -->
+    <title>JavaScript Assignment</title>
+    <!-- Defining the style of different elements of web page -->
+    <style>
+        body {
+            font-weight: 200;
+            line-height: 1.40em;
+            color: #d1c4e0;
+            background-color: #212736;
+        }
+        
+        h3 {
+            font-size: 2em;
+            font-weight: 200;
+            line-height: 1em;
+            text-align: center;
+            color: #d1c4e0;
+        }
+        
+        th {
+            font-weight: bold;
+            font-size: 1em;
+            text-align: left;
+            color: #2586b3;
+        }
+        
+        td {
+            font-weight: normal;
+            font-size: 1em;
+        }
+        
+        table {
+            text-align: left;
+            overflow: hidden;
+            width: 80%;
+            margin: 0 auto;
+            display: table;
+            padding: 0 0 8em 0;
+        }
+        
+        td,
+        th {
+            padding-bottom: 2%;
+            padding-top: 2%;
+            padding-left: 2%;
+        }
+        
+        tr:nth-child(odd) {
+            background-color: #3d4963;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #2f3644;
+        }
+        
+        th {
+            background-color: #1e2638;
+        }
+        
+        td:first-child {
+            color: #fd6c7f;
+        }
+        
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 0.4em;
+        }
+    </style>
+</head>
+
+<body>
+    <h3 style="text-align: center;">JavaScript Assignment <br>Ashish Arya <br>1828232 <br>House Loki</h3>
+    <div class="center">
+        <input type='button' onclick='tableFromJson()' value='Click to display table' />
+    </div>
+    <p id='showData' </p>
+
+</body>
+
+<!-- Executing operation in JavaScript by using script tag. -->
+<script>
+    // loading the json data
+    function tableFromJson() {
+        // the json data.
+        var jsondata = {
+                "data": [{
+                    "id": 1,
+                    "name": "Bruce Wayne",
+                    "subject1": 80,
+                    "subject2": 45,
+                    "subject3": 90
+                }, {
+                    "id": 2,
+                    "name": "Diana",
+                    "subject1": 56,
+                    "subject2": 74,
+                    "subject3": 78
+                }, {
+                    "id": 3,
+                    "name": "Clark Kent",
+                    "subject1": 67,
+                    "subject2": 78,
+                    "subject3": 90
+                }, {
+                    "id": 4,
+                    "name": "Barry Allen",
+                    "subject1": 89,
+                    "subject2": 35,
+                    "subject3": 64
+                }, {
+                    "id": 5,
+                    "name": "Arthur Curry",
+                    "subject1": 76,
+                    "subject2": 65,
+                    "subject3": 100
+                }, {
+                    "id": 6,
+                    "name": "Victor Stone",
+                    "subject1": 99,
+                    "subject2": 87,
+                    "subject3": 64
+                }]
+            }
+            // Saving the data part in a variable called data
+        var data = jsondata["data"]
+
+        var max_marks = [] // Creating an array to store max_marks of each student.
+
+        // Using ES6 function forEach to traverse through the array and finding out maximum marks of each student.
+        data.forEach((element) => {
+            var marks = [];
+            marks.push(element.subject1, element.subject2, element.subject3)
+            var maximum = Math.max(...marks)
+            max_marks.push(maximum)
+        });
+        // Storing the maximum marks in the data array along with the other data.
+        var i;
+        for (i = 0; i < max_marks.length; i++) {
+            data[i].Max_Marks = max_marks[i];
+        }
+
+        // Extract value from table header.
+        var col = [];
+        for (var i = 0; i < data.length; i++) {
+            for (var key in data[i]) {
+                if (col.indexOf(key) === -1) {
+                    col.push(key);
+                }
+            }
+        }
+
+        // Create a table.
+        var table = document.createElement("table");
+
+        // Create table header row using the extracted headers above.
+        var tr = table.insertRow(-1); // table row.
+
+        for (var i = 0; i < col.length; i++) {
+            var th = document.createElement("th"); // table header.
+            th.innerHTML = col[i];
+            tr.appendChild(th);
+        }
+
+        // add json data to the table as rows.
+        for (var i = 0; i < data.length; i++) {
+
+            tr = table.insertRow(-1);
+
+            for (var j = 0; j < col.length; j++) {
+                var tabCell = tr.insertCell(-1);
+                tabCell.innerHTML = data[i][col[j]];
+            }
+        }
+
+        // Now, add the newly created table with json data, to a container.
+        var divShowData = document.getElementById('showData');
+        divShowData.innerHTML = "";
+        divShowData.appendChild(table);
+
+    }
+</script>
+
+</html>
