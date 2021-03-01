@@ -14,7 +14,7 @@ public class infinitywar {
 		static final String DB_URL = "jdbc:mysql://localhost/infinity_war";
 		// Database credentials
 		static final String USER = "root";
-		static final String PASS = "LAZY!@bolt9";
+		static final String PASS = "root";
 		public static void main(String[] args) {
 		Connection conn = null;
 		Statement stmt = null;
